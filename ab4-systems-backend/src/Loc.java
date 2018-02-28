@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Loc {
 
 	private String nume;
-	private String perioada;
+	// private String perioada;
+	private Perioada perioada;
 	private double pretMediuZi;
 	private ArrayList<String> activitati = new ArrayList<>();
 
@@ -14,17 +15,17 @@ public class Loc {
 		this.nume = nume;
 	}
 
-	public Loc(String nume, String perioada) {
+	public Loc(String nume, Perioada perioada) {
 		this(nume);
 		this.perioada = perioada;
 	}
 
-	public Loc(String nume, String perioada, double pretMediuZi) {
+	public Loc(String nume, Perioada perioada, double pretMediuZi) {
 		this(nume, perioada);
 		this.pretMediuZi = pretMediuZi;
 	}
 
-	public Loc(String nume, String perioada, double pretMediuZi, ArrayList<String> activitati) {
+	public Loc(String nume, Perioada perioada, double pretMediuZi, ArrayList<String> activitati) {
 		this(nume, perioada, pretMediuZi);
 		this.activitati.addAll(activitati);
 	}
@@ -40,11 +41,11 @@ public class Loc {
 		this.nume = nume;
 	}
 
-	public String getPerioada() {
+	public Perioada getPerioada() {
 		return perioada;
 	}
 
-	public void setPerioada(String perioada) {
+	public void setPerioada(Perioada perioada) {
 		this.perioada = perioada;
 	}
 
@@ -75,8 +76,9 @@ public class Loc {
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
-		str.append("Locatie: " + nume + "\n" + "Perioada: " + perioada + "\n" + "Pret Mediu: " + pretMediuZi + "\n"
-				+ "Activitati: ");
+		str.append("Locatie: " + nume + "\n" + "Perioada: " + perioada.getZiStart() + "." + perioada.getLunaStart()
+				+ "-" + perioada.getZiFinal() + "." + perioada.getLunaFinal() + "\n" + "Pret Mediu: " + pretMediuZi
+				+ "\n" + "Activitati: ");
 
 		for (String s : activitati) {
 			str.append(s + ", ");

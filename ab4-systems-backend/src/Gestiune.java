@@ -174,7 +174,7 @@ public class Gestiune {
 		return null;
 	}
 
-	public ArrayList<Loc> getTop(String criteriu, String perioada) {
+	public ArrayList<Loc> getTop(String criteriu, Perioada perioada) {
 		ArrayList<Loc> top = new ArrayList<>();
 		Comparator<Loc> c = new Comparator<Loc>() {
 
@@ -183,26 +183,26 @@ public class Gestiune {
 				// TODO Auto-generated method stub
 				return 0;
 			}
-			
+
 		};
-		
+
 		if (tari.containsKey(criteriu)) {
 			tari.get(criteriu).sort(c);
-			for (int i=0; i<5; i++) {
+			for (int i = 0; i < 5; i++) {
 				top.add(tari.get(criteriu).get(i));
 			}
 		}
 
 		if (judete.containsKey(criteriu)) {
 			judete.get(criteriu).sort(c);
-			for (int i=0; i<5; i++) {
+			for (int i = 0; i < 5; i++) {
 				top.add(judete.get(criteriu).get(i));
 			}
 		}
 
 		if (orase.containsKey(criteriu)) {
 			judete.get(criteriu).sort(c);
-			for (int i=0; i<5; i++) {
+			for (int i = 0; i < 5; i++) {
 				top.add(judete.get(criteriu).get(i));
 			}
 		}
