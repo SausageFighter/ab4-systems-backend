@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Gestiune {
 
+	private HashMap<String, ArrayList<Loc>> orase = new HashMap<>();
+	private HashMap<String, ArrayList<Loc>> judete = new HashMap<>();
+	private HashMap<String, ArrayList<Loc>> tari = new HashMap<>();
 	private ArrayList<Loc> locatii = new ArrayList<>();
-	private HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> tari = new HashMap<>();
+	private HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> info = new HashMap<>();
 
 	private Gestiune() {
 	}
@@ -20,6 +24,30 @@ public class Gestiune {
 	/*
 	 * Setteri si getteri pentru datele private
 	 */
+	public HashMap<String, ArrayList<Loc>> getOrase() {
+		return orase;
+	}
+
+	public void setOrase(HashMap<String, ArrayList<Loc>> orase) {
+		this.orase = orase;
+	}
+
+	public HashMap<String, ArrayList<Loc>> getJudete() {
+		return judete;
+	}
+
+	public void setJudete(HashMap<String, ArrayList<Loc>> judete) {
+		this.judete = judete;
+	}
+
+	public HashMap<String, ArrayList<Loc>> getTari() {
+		return tari;
+	}
+
+	public void setTari(HashMap<String, ArrayList<Loc>> tari) {
+		this.tari = tari;
+	}
+
 	public ArrayList<Loc> getLocatii() {
 		return locatii;
 	}
@@ -28,38 +56,38 @@ public class Gestiune {
 		this.locatii = locatii;
 	}
 
-	public HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> getTari() {
-		return tari;
+	public HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> getInfo() {
+		return info;
 	}
 
-	public void setTari(HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> tari) {
-		this.tari = tari;
+	public void setInfo(HashMap<String, HashMap<String, HashMap<String, ArrayList<Loc>>>> info) {
+		this.info = info;
 	}
 
 	/*
 	 * Getteri pentru diferite valori
 	 */
 	public HashMap<String, HashMap<String, ArrayList<Loc>>> getJudete(String tara) {
-		if (tari.containsKey(tara)) {
-			return tari.get(tara);
+		if (info.containsKey(tara)) {
+			return info.get(tara);
 		}
 		return null;
 	}
 
 	public HashMap<String, ArrayList<Loc>> getOrase(String tara, String judet) {
-		if (tari.containsKey(tara)) {
-			if (tari.get(tara).containsKey(judet)) {
-				return tari.get(tara).get(judet);
+		if (info.containsKey(tara)) {
+			if (info.get(tara).containsKey(judet)) {
+				return info.get(tara).get(judet);
 			}
 		}
 		return null;
 	}
 
 	public ArrayList<Loc> getLocuri(String tara, String judet, String oras) {
-		if (tari.containsKey(tara)) {
-			if (tari.get(tara).containsKey(judet)) {
-				if (tari.get(tara).get(judet).containsKey(oras)) {
-					return tari.get(tara).get(judet).get(oras);
+		if (info.containsKey(tara)) {
+			if (info.get(tara).containsKey(judet)) {
+				if (info.get(tara).get(judet).containsKey(oras)) {
+					return info.get(tara).get(judet).get(oras);
 				}
 			}
 		}
@@ -70,32 +98,54 @@ public class Gestiune {
 	 * Adderi ai inputului
 	 */
 	public void addTara(String tara) {
-		if (!tari.containsKey(tara)) {
-			tari.put(tara, new HashMap<>());
+		if (!info.containsKey(tara)) {
+			info.put(tara, new HashMap<>());
+			tari.put(tara, new ArrayList<>());
 		}
 	}
 
 	public void addJudet(String tara, String judet) {
-		if (!tari.get(tara).containsKey(judet)) {
-			tari.get(tara).put(judet, new HashMap<>());
+		if (!info.get(tara).containsKey(judet)) {
+			info.get(tara).put(judet, new HashMap<>());
+			judete.put(judet, new ArrayList<>());
 		}
 	}
 
 	public void addOras(String tara, String judet, String oras) {
-		if (!tari.get(tara).get(judet).containsKey(oras)) {
-			tari.get(tara).get(judet).put(oras, new ArrayList<>());
+		if (!info.get(tara).get(judet).containsKey(oras)) {
+			info.get(tara).get(judet).put(oras, new ArrayList<>());
+			orase.put(oras, new ArrayList<>());
 		}
 	}
 
 	public void addLoc(String tara, String judet, String oras, Loc loc) {
-		if (!tari.get(tara).get(judet).get(oras).contains(loc)) {
-			tari.get(tara).get(judet).get(oras).add(loc);
+		if (!info.get(tara).get(judet).get(oras).contains(loc)) {
+			info.get(tara).get(judet).get(oras).add(loc);
 			locatii.add(loc);
+
+			for (String t : tari.keySet()) {
+				if (t.equals(tara)) {
+					tari.get(tara).add(loc);
+				}
+			}
+
+			for (String j : judete.keySet()) {
+				if (j.equals(judet)) {
+					judete.get(judet).add(loc);
+				}
+			}
+
+			for (String o : orase.keySet()) {
+				if (o.equals(oras)) {
+					orase.get(oras).add(loc);
+				}
+			}
+
 		}
 	}
 
 	public void addInfo(String tara, String judet, String oras, Loc loc) {
-		if (tari.containsKey(tara)) {
+		if (info.containsKey(tara)) {
 			return;
 		}
 		this.addTara(tara);
@@ -106,10 +156,10 @@ public class Gestiune {
 
 	/*
 	 * @Override public String toString() { StringBuffer str = new StringBuffer();
-	 * for (String tara : tari.keySet()) { for (String judet :
-	 * tari.get(tara).keySet()) { for (String oras :
-	 * tari.get(tara).get(judet).keySet()) { for (Loc locatie :
-	 * tari.get(tara).get(judet).get(oras)) { str.append("Tara: " + tara + "\n" +
+	 * for (String tara : info.keySet()) { for (String judet :
+	 * info.get(tara).keySet()) { for (String oras :
+	 * info.get(tara).get(judet).keySet()) { for (Loc locatie :
+	 * info.get(tara).get(judet).get(oras)) { str.append("Tara: " + tara + "\n" +
 	 * "Judet: " + judet + "\n" + "Oras: " + oras + "\n" + locatie); } } } }
 	 * 
 	 * return str.toString(); }
@@ -122,6 +172,42 @@ public class Gestiune {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<Loc> getTop(String criteriu, String perioada) {
+		ArrayList<Loc> top = new ArrayList<>();
+		Comparator<Loc> c = new Comparator<Loc>() {
+
+			@Override
+			public int compare(Loc arg0, Loc arg1) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+		};
+		
+		if (tari.containsKey(criteriu)) {
+			tari.get(criteriu).sort(c);
+			for (int i=0; i<5; i++) {
+				top.add(tari.get(criteriu).get(i));
+			}
+		}
+
+		if (judete.containsKey(criteriu)) {
+			judete.get(criteriu).sort(c);
+			for (int i=0; i<5; i++) {
+				top.add(judete.get(criteriu).get(i));
+			}
+		}
+
+		if (orase.containsKey(criteriu)) {
+			judete.get(criteriu).sort(c);
+			for (int i=0; i<5; i++) {
+				top.add(judete.get(criteriu).get(i));
+			}
+		}
+
+		return top;
 	}
 
 }
