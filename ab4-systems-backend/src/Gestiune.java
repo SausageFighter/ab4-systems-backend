@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -145,9 +146,6 @@ public class Gestiune {
 	}
 
 	public void addInfo(String tara, String judet, String oras, Loc loc) {
-		if (info.containsKey(tara)) {
-			return;
-		}
 		this.addTara(tara);
 		this.addJudet(tara, judet);
 		this.addOras(tara, judet, oras);
@@ -174,36 +172,61 @@ public class Gestiune {
 		return null;
 	}
 
+	/*
+	 * Intoarce top 5 locatii valabile intr-o perioada dupa pret
+	 */
 	public ArrayList<Loc> getTop(String criteriu, Perioada perioada) {
 		ArrayList<Loc> top = new ArrayList<>();
 		Comparator<Loc> c = new Comparator<Loc>() {
 
 			@Override
-			public int compare(Loc arg0, Loc arg1) {
-				// TODO Auto-generated method stub
-				return 0;
+			public int compare(Loc o1, Loc o2) {
+				return (int) (100 * (o1.getPretMediuZi() - o2.getPretMediuZi()));
 			}
-
 		};
 
 		if (tari.containsKey(criteriu)) {
-			tari.get(criteriu).sort(c);
-			for (int i = 0; i < 5; i++) {
-				top.add(tari.get(criteriu).get(i));
+			Collections.sort(tari.get(criteriu), c);
+			int nr_valabile = 0;
+			for (Loc loc : tari.get(criteriu)) {
+				if (loc.getPerioada().isValabil(perioada)) {
+					top.add(loc);
+					nr_valabile++;
+				}
+
+				if (nr_valabile == 5) {
+					break;
+				}
 			}
 		}
 
 		if (judete.containsKey(criteriu)) {
-			judete.get(criteriu).sort(c);
-			for (int i = 0; i < 5; i++) {
-				top.add(judete.get(criteriu).get(i));
+			Collections.sort(judete.get(criteriu), c);
+			int nr_valabile = 0;
+			for (Loc loc : judete.get(criteriu)) {
+				if (loc.getPerioada().isValabil(perioada)) {
+					top.add(loc);
+					nr_valabile++;
+				}
+
+				if (nr_valabile == 5) {
+					break;
+				}
 			}
 		}
 
 		if (orase.containsKey(criteriu)) {
-			judete.get(criteriu).sort(c);
-			for (int i = 0; i < 5; i++) {
-				top.add(judete.get(criteriu).get(i));
+			Collections.sort(orase.get(criteriu), c);
+			int nr_valabile = 0;
+			for (Loc loc : orase.get(criteriu)) {
+				if (loc.getPerioada().isValabil(perioada)) {
+					top.add(loc);
+					nr_valabile++;
+				}
+
+				if (nr_valabile == 5) {
+					break;
+				}
 			}
 		}
 

@@ -6,13 +6,13 @@ public class Perioada {
 	private int ziFinal;
 	private int lunaFinal;
 
-	public Perioada (int ziStart, int lunaStart, int ziFinal, int lunaFinal) {
+	public Perioada(int ziStart, int lunaStart, int ziFinal, int lunaFinal) {
 		this.ziStart = ziStart;
 		this.lunaStart = lunaStart;
 		this.ziFinal = ziFinal;
 		this.lunaFinal = lunaFinal;
 	}
-	
+
 	public int getZiStart() {
 		return ziStart;
 	}
@@ -43,6 +43,32 @@ public class Perioada {
 
 	public void setLunaFinal(int lunaFinal) {
 		this.lunaFinal = lunaFinal;
+	}
+
+	/*
+	 * Verifica valabilitatea unui loc in functie de o anume perioada
+	 */
+	public boolean isValabil(Perioada p) {
+		if (lunaStart <= p.getLunaStart() && lunaFinal >= p.getLunaFinal()) {
+			if (lunaStart == p.getLunaStart() && lunaFinal == p.getLunaFinal()) {
+				if (ziStart <= p.getZiStart() && ziFinal >= p.getZiFinal()) {
+					return true;
+				}
+			} else if (lunaStart < p.getLunaStart() && lunaFinal == p.getLunaFinal()) {
+				if (ziFinal >= p.getZiFinal()) {
+					return true;
+				}
+			} else if (lunaStart == p.getLunaStart() && lunaFinal > p.getLunaFinal()) {
+				if (ziStart <= p.getZiStart()) {
+					return true;
+				}
+			} else if (lunaStart < p.getLunaStart() && lunaFinal > p.getLunaFinal()) {
+				return true;
+			}
+
+		}
+		return false;
+
 	}
 
 }

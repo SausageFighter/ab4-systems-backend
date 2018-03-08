@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Loc {
 
 	private String nume;
-	// private String perioada;
 	private Perioada perioada;
 	private double pretMediuZi;
 	private ArrayList<String> activitati = new ArrayList<>();
@@ -83,7 +82,8 @@ public class Loc {
 		for (String s : activitati) {
 			str.append(s + ", ");
 		}
-
+		str.append("\n\n");
+		
 		return str.toString();
 	}
 }
