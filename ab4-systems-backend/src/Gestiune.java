@@ -152,17 +152,26 @@ public class Gestiune {
 		this.addLoc(tara, judet, oras, loc);
 	}
 
-	/*
-	 * @Override public String toString() { StringBuffer str = new StringBuffer();
-	 * for (String tara : info.keySet()) { for (String judet :
-	 * info.get(tara).keySet()) { for (String oras :
-	 * info.get(tara).get(judet).keySet()) { for (Loc locatie :
-	 * info.get(tara).get(judet).get(oras)) { str.append("Tara: " + tara + "\n" +
-	 * "Judet: " + judet + "\n" + "Oras: " + oras + "\n" + locatie); } } } }
-	 * 
-	 * return str.toString(); }
-	 */
+	@Override
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		for (String tara : info.keySet()) {
+			for (String judet : info.get(tara).keySet()) {
+				for (String oras : info.get(tara).get(judet).keySet()) {
+					for (Loc locatie : info.get(tara).get(judet).get(oras)) {
+						str.append(
+								"Tara: " + tara + "\n" + "Judet: " + judet + "\n" + "Oras: " + oras + "\n" + locatie);
+					}
+				}
+			}
+		}
 
+		return str.toString();
+	}
+
+	/*
+	 * Gasirea unei locatii dupa nume
+	 */
 	public Loc getLocatie(String loc) {
 		for (Loc l : locatii) {
 			if (l.getNume().equals(loc)) {
@@ -231,6 +240,23 @@ public class Gestiune {
 		}
 
 		return top;
+	}
+
+	/*
+	 * Intoarce locatia unde e cel mai ieftin o anumita activitate
+	 */
+	public Loc getActivitate(String activitate) {
+		double pret = Double.MAX_VALUE;
+		Loc locatia = new Loc();
+		for (Loc loc : locatii) {
+			if (loc.getActivitati().contains(activitate)) {
+				if (loc.getPretMediuZi() < pret) {
+					pret = loc.getPretMediuZi();
+					locatia = loc;
+				}
+			}
+		}
+		return locatia;
 	}
 
 }

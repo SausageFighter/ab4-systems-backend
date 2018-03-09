@@ -65,10 +65,8 @@ public class Perioada {
 			} else if (lunaStart < p.getLunaStart() && lunaFinal > p.getLunaFinal()) {
 				return true;
 			}
-
 		}
 		return false;
-
 	}
 
 }

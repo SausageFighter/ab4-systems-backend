@@ -10,6 +10,9 @@ public class Loc {
 	/*
 	 * Constructori ai unei locatii
 	 */
+	public Loc() {
+	}
+
 	public Loc(String nume) {
 		this.nume = nume;
 	}
@@ -83,7 +86,7 @@ public class Loc {
 			str.append(s + ", ");
 		}
 		str.append("\n\n");
-		
+
 		return str.toString();
 	}
 }

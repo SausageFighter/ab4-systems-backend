@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * 
- * @author Mihai Olaru on 27.02.2018
+ * @author Mihai Olaru
  *
  */
 public class Main {
@@ -16,6 +16,9 @@ public class Main {
 		Scanner sc = new Scanner(new FileReader(new File("src/input.txt")));
 		String[] data;
 
+		/*
+		 * Citirea datelor din fisier
+		 */
 		while (sc.hasNextLine()) {
 			ArrayList<String> activitati = new ArrayList<>();
 			String row = sc.nextLine();
@@ -43,8 +46,14 @@ public class Main {
 
 		}
 
-		// System.out.println(Gestiune.getInstance().getInfo());
-		System.out.println(Gestiune.getInstance().getTop("Romania", new Perioada(15, 2, 20, 2)));
+		/*
+		 * Aici sunt cerintele hardcodate
+		 */
+		// System.out.println(Gestiune.getInstance());
+		// System.out.println(Gestiune.getInstance().getTop("Romania", new Perioada(15, 2, 20, 2)));
+		// System.out.println(Gestiune.getInstance().getActivitate("video"));
+		// System.out.println(Gestiune.getInstance().getLocatie("Stadion"));
+
 		sc.close();
 	}
 
