@@ -8,7 +8,10 @@ import java.util.Scanner;
  * 
  * @author Mihai Olaru
  *
+ *         Parseaza datele din fisierele de input, si implementeaza metodele
+ *         necesare rezolvarii problemei
  */
+
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -50,7 +53,8 @@ public class Main {
 		 * Aici sunt cerintele hardcodate
 		 */
 		// System.out.println(Gestiune.getInstance());
-		// System.out.println(Gestiune.getInstance().getTop("Romania", new Perioada(15, 2, 20, 2)));
+		// System.out.println(Gestiune.getInstance().getTop("Romania", new Perioada(15,
+		// 2, 20, 2)));
 		// System.out.println(Gestiune.getInstance().getActivitate("video"));
 		// System.out.println(Gestiune.getInstance().getLocatie("Stadion"));
 

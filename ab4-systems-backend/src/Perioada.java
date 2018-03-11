@@ -1,4 +1,7 @@
-
+/**
+ * Ajuta la stocarea perioadei de vizitare a unei locatii, si face cautarea mai
+ * usoara
+ */
 public class Perioada {
 
 	private int ziStart;

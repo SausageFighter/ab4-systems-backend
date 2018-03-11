@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Retine toate informatiile legate de un loc
+ */
 public class Loc {
 
 	private String nume;
@@ -7,9 +10,6 @@ public class Loc {
 	private double pretMediuZi;
 	private ArrayList<String> activitati = new ArrayList<>();
 
-	/*
-	 * Constructori ai unei locatii
-	 */
 	public Loc() {
 	}
 
@@ -32,9 +32,6 @@ public class Loc {
 		this.activitati.addAll(activitati);
 	}
 
-	/*
-	 * Getteri si setteri ale datelor private
-	 */
 	public String getNume() {
 		return nume;
 	}
@@ -67,6 +64,9 @@ public class Loc {
 		this.activitati = activitati;
 	}
 
+	/*
+	 * Verifica daca o activitate este valabila intr-un loc
+	 */
 	public boolean checkActivitate(String activitate) {
 		if (activitati.contains(activitate)) {
 			return true;

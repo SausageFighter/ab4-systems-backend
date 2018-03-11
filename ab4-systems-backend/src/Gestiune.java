@@ -3,6 +3,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * Ajuta la gestionarea datelor, si contine metode utile pentru rezolvarea
+ * problemei
+ */
 public class Gestiune {
 
 	private HashMap<String, ArrayList<Loc>> orase = new HashMap<>();
@@ -22,9 +26,6 @@ public class Gestiune {
 		return LazyHolder.instance;
 	}
 
-	/*
-	 * Setteri si getteri pentru datele private
-	 */
 	public HashMap<String, ArrayList<Loc>> getOrase() {
 		return orase;
 	}
@@ -65,9 +66,6 @@ public class Gestiune {
 		this.info = info;
 	}
 
-	/*
-	 * Getteri pentru diferite valori
-	 */
 	public HashMap<String, HashMap<String, ArrayList<Loc>>> getJudete(String tara) {
 		if (info.containsKey(tara)) {
 			return info.get(tara);
@@ -249,7 +247,7 @@ public class Gestiune {
 		double pret = Double.MAX_VALUE;
 		Loc locatia = new Loc();
 		for (Loc loc : locatii) {
-			if (loc.getActivitati().contains(activitate)) {
+			if (loc.checkActivitate(activitate)) {
 				if (loc.getPretMediuZi() < pret) {
 					pret = loc.getPretMediuZi();
 					locatia = loc;
