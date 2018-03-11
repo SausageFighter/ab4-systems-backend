@@ -1,6 +1,6 @@
 # ab4-systems
 
-Pentru eficienta am decis sa folosesc HashMap. 
+Pentru a retine locatiile, si a le acesa rapid am decis sa folosesc HashMap. 
 	
 Am continuat cu crearea mai multor clase, pentru a ma ajuta in implementare. Clasa Loc, este 
 clasa unde voi tine toate informatiile depre o anumita locatie. Clasa Perioada, retine perioada
